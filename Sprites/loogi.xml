@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:e41bfa386d5d3dac7f8ecd37d8c25757:f02bbc8dff139f56526512a3e27a38b0:abf0c999513f619116e39ba6e49c6baf$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="loogi.png" width="533" height="701">
+    <sprite n="1UP.png" x="438" y="571" w="46" h="46"/>
+    <sprite n="5coin_1.png" x="486" y="547" w="46" h="46"/>
+    <sprite n="5coin_2.png" x="354" y="623" w="38" h="46"/>
+    <sprite n="5coin_3.png" x="37" y="647" w="34" h="46"/>
+    <sprite n="5coin_4.png" x="326" y="654" w="26" h="46"/>
+    <sprite n="5coin_5.png" x="424" y="627" w="10" h="46"/>
+    <sprite n="5coin_6.png" x="197" y="650" w="26" h="46"/>
+    <sprite n="5coin_7.png" x="1" y="647" w="34" h="46"/>
+    <sprite n="5coin_8.png" x="446" y="619" w="38" h="46"/>
+    <sprite n="10coin_1.png" x="439" y="443" w="54" h="54"/>
+    <sprite n="10coin_2.png" x="397" y="515" w="48" h="54"/>
+    <sprite n="10coin_3.png" x="396" y="571" w="40" h="54"/>
+    <sprite n="10coin_4.png" x="394" y="627" w="28" h="54"/>
+    <sprite n="10coin_5.png" x="517" y="1" w="12" h="54"/>
+    <sprite n="10coin_6.png" x="486" y="639" w="28" h="54"/>
+    <sprite n="10coin_7.png" x="354" y="567" w="40" h="54"/>
+    <sprite n="10coin_8.png" x="143" y="599" w="48" h="54"/>
+    <sprite n="50coin_1.png" x="415" y="309" w="64" h="64"/>
+    <sprite n="50coin_2.png" x="409" y="375" w="54" h="64"/>
+    <sprite n="50coin_3.png" x="481" y="311" w="46" h="64"/>
+    <sprite n="50coin_4.png" x="320" y="588" w="32" h="64"/>
+    <sprite n="50coin_5.png" x="119" y="599" w="14" h="64"/>
+    <sprite n="50coin_6.png" x="447" y="499" w="32" h="64"/>
+    <sprite n="50coin_7.png" x="465" y="377" w="46" h="64"/>
+    <sprite n="50coin_8.png" x="341" y="501" w="54" h="64"/>
+    <sprite n="100coin_1.png" x="315" y="207" w="72" h="72"/>
+    <sprite n="100coin_2.png" x="389" y="165" w="60" h="72"/>
+    <sprite n="100coin_3.png" x="353" y="353" w="54" h="72"/>
+    <sprite n="100coin_4.png" x="397" y="441" w="40" h="72"/>
+    <sprite n="100coin_5.png" x="513" y="377" w="16" h="72"/>
+    <sprite n="100coin_6.png" x="481" y="237" w="40" h="72"/>
+    <sprite n="100coin_7.png" x="341" y="427" w="54" h="72"/>
+    <sprite n="100coin_8.png" x="275" y="514" w="60" h="72"/>
+    <sprite n="coin_1.png" x="486" y="595" w="42" h="42"/>
+    <sprite n="coin_2.png" x="73" y="641" w="36" h="42"/>
+    <sprite n="coin_3.png" x="294" y="656" w="30" h="42"/>
+    <sprite n="coin_4.png" x="173" y="655" w="22" h="42"/>
+    <sprite n="coin_5.png" x="258" y="656" w="10" h="42"/>
+    <sprite n="coin_6.png" x="270" y="656" w="22" h="42"/>
+    <sprite n="coin_7.png" x="225" y="650" w="30" h="42"/>
+    <sprite n="coin_8.png" x="495" y="451" w="36" h="42"/>
+    <sprite n="fawfulcopter_dead.png" x="193" y="514" w="80" h="66"/>
+    <sprite n="fawfulcopter_idle_1.png" x="163" y="412" w="72" h="80"/>
+    <sprite n="fawfulcopter_idle_2.png" x="237" y="330" w="72" h="80"/>
+    <sprite n="fawfulcopter_idle_3.png" x="163" y="330" w="72" h="80"/>
+    <sprite n="fawfulcopter_idle_4.png" x="119" y="517" w="72" h="80"/>
+    <sprite n="fawfulcopter_idle_5.png" x="163" y="412" w="72" h="80"/>
+    <sprite n="fawfulcopter_idle_6.png" x="237" y="330" w="72" h="80"/>
+    <sprite n="fawfulcopter_idle_7.png" x="163" y="330" w="72" h="80"/>
+    <sprite n="fawfulcopter_idle_8.png" x="119" y="517" w="72" h="80"/>
+    <sprite n="luigi_crouch_1.png" x="353" y="281" w="60" h="70"/>
+    <sprite n="luigi_crouch_2.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_3.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_4.png" x="451" y="167" w="62" h="68"/>
+    <sprite n="luigi_crouch_5.png" x="353" y="281" w="60" h="70"/>
+    <sprite n="luigi_crouch_6.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_7.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_8.png" x="451" y="167" w="62" h="68"/>
+    <sprite n="luigi_crouch_9.png" x="353" y="281" w="60" h="70"/>
+    <sprite n="luigi_crouch_10.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_11.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_12.png" x="451" y="167" w="62" h="68"/>
+    <sprite n="luigi_crouch_13.png" x="353" y="281" w="60" h="70"/>
+    <sprite n="luigi_crouch_14.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_15.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_16.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_17.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_18.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_19.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_20.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_21.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_22.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_23.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_24.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_25.png" x="257" y="588" w="61" h="66"/>
+    <sprite n="luigi_crouch_26.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_27.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_28.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_29.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_30.png" x="451" y="167" w="62" h="68"/>
+    <sprite n="luigi_crouch_31.png" x="353" y="281" w="60" h="70"/>
+    <sprite n="luigi_crouch_32.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_crouch_33.png" x="193" y="582" w="62" h="66"/>
+    <sprite n="luigi_crouch_34.png" x="451" y="167" w="62" h="68"/>
+    <sprite n="luigi_crouch_35.png" x="353" y="281" w="60" h="70"/>
+    <sprite n="luigi_crouch_36.png" x="415" y="239" w="62" h="68"/>
+    <sprite n="luigi_dead.png" x="277" y="165" w="104" h="40"/>
+    <sprite n="luigi_jumping.png" x="1" y="199" w="70" h="116"/>
+    <sprite n="luigi_running_1.png" x="237" y="412" w="50" h="100"/>
+    <sprite n="luigi_running_2.png" x="143" y="199" w="60" h="104"/>
+    <sprite n="luigi_running_3.png" x="323" y="67" w="68" h="96"/>
+    <sprite n="luigi_running_4.png" x="205" y="133" w="70" h="90"/>
+    <sprite n="luigi_running_5.png" x="465" y="67" w="64" h="98"/>
+    <sprite n="luigi_running_6.png" x="109" y="305" w="52" h="104"/>
+    <sprite n="luigi_running_7.png" x="289" y="412" w="50" h="100"/>
+    <sprite n="luigi_running_8.png" x="205" y="225" w="56" h="103"/>
+    <sprite n="luigi_running_9.png" x="73" y="199" w="68" h="98"/>
+    <sprite n="luigi_running_10.png" x="393" y="67" w="70" h="92"/>
+    <sprite n="luigi_running_11.png" x="1" y="545" w="64" h="100"/>
+    <sprite n="luigi_running_12.png" x="109" y="411" w="52" h="104"/>
+    <sprite n="luigi_scared_1.png" x="1" y="317" w="52" h="114"/>
+    <sprite n="luigi_scared_2.png" x="1" y="433" w="54" h="110"/>
+    <sprite n="luigi_scared_3.png" x="67" y="535" w="50" h="104"/>
+    <sprite n="luigi_scared_4.png" x="263" y="226" w="50" h="102"/>
+    <sprite n="luigi_scared_5.png" x="55" y="317" w="52" h="106"/>
+    <sprite n="luigi_scared_6.png" x="57" y="425" w="50" h="108"/>
+    <sprite n="luigi_standing.png" x="315" y="281" w="36" h="108"/>
+    <sprite n="mushroom.png" x="481" y="499" w="46" h="46"/>
+    <sprite n="platform_ice.png" x="1" y="133" w="192" h="64"/>
+    <sprite n="platform_long_ice.png" x="1" y="1" w="320" h="64"/>
+    <sprite n="platform_long_no_ice.png" x="1" y="67" w="320" h="64"/>
+    <sprite n="platform_no_ice.png" x="323" y="1" w="192" h="64"/>
+</TextureAtlas>
