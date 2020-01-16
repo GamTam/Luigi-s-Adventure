@@ -17,6 +17,8 @@ class Game:
         self.pauseSound = False
         self.running = True
         self.going = False
+        self.firstLoop = True
+        self.players = 1
         self.song_playing = ""
         self.font = pg.font.match_font(font)
         self.platWidth = width / 2
@@ -35,42 +37,7 @@ class Game:
         self.enemyDieSound = pg.mixer.Sound("sounds/enemy_die.ogg")
         self.coinSound = pg.mixer.Sound("sounds/coin.ogg")
 
-    def playSong(self, intro, song):
-        if self.pause:
-            # if self.pauseSound:
-            #     self.click.play()
-            #     self.pauseSound = False
-            pg.mixer.pause()
-            pg.mixer.music.pause()
-        else:
-            # if self.pauseSound:
-            #     self.click.play()
-            #     self.pauseSound = True
-            pg.mixer.music.unpause()
-            pg.mixer.unpause()
-
-        if intro and not self.pause:
-            if self.song_playing != "loop":
-                if not pg.mixer.music.get_busy() and self.song_playing == "":
-                    if self.song_playing == "":
-                        pg.mixer.music.load("music/" + str(song) + "_intro.ogg")
-                        self.song_playing = "intro"
-                        pg.mixer.music.play()
-                elif pg.mixer.music.get_pos() == -1:
-                    pg.mixer.music.load("music/" + str(song) + "_main.ogg")
-                    pg.mixer.music.play(-1)
-                    self.song_playing = "loop"
-        else:
-            if self.song_playing != "loop":
-                if  pg.mixer.music.get_pos() == -1:
-                    pg.mixer.music.load("music/" + str(song) + ".ogg")
-                    pg.mixer.music.play(-1)
-                    self.song_playing = "loop"
-
-        self.soundPos = pg.mixer.music.get_pos()
-        self.totalLength = 15
-
-    def NEWplaySong(self, introLength, loopLength, song):
+    def playSong(self, introLength, loopLength, song):
 
         if self.pause:
             if self.pauseSound:
@@ -142,12 +109,16 @@ class Game:
         self.powerups = pg.sprite.Group()
         self.particles = pg.sprite.Group()
         self.platformSpeed = 3
-        self.player = Player(self)
+        self.luigi = Luigi(self)
+        if self.players == 2:
+            self.mario = Mario(self)
+            self.sprites.add(self.mario)
+            self.deadBros = 0
         for plat in platformList:
             p = Platform(*plat)
             self.sprites.add(p)
             self.platforms.add(p)
-        self.sprites.add(self.player)
+        self.sprites.add(self.luigi)
         self.going = False
         self.touching = False
         self.pause = False
@@ -158,10 +129,10 @@ class Game:
         self.playing = True
 
         while self.playing:
-            # self.NEWplaySong(6.443, 53.348, "count bleck")
-            # self.NEWplaySong(12.556, 62.233, "sammer's kingdom")
-            # self.NEWplaySong(16.025, 70.378, "dimentio")
-            self.NEWplaySong(9.007, 62.0, "champion of destruction")
+            # self.playSong(6.443, 53.348, "count bleck")
+            # self.playSong(12.556, 62.233, "sammer's kingdom")
+            # self.playSong(16.025, 70.378, "dimentio")
+            self.playSong(9.007, 62.0, "champion of destruction")
             self.clock.tick(fps)
             self.events()
             self.update()
@@ -171,7 +142,7 @@ class Game:
         pg.mixer.stop()
         self.gameOverSound.play()
         pg.mixer.music.stop()
-        self.song_playing = ""
+        self.firstLoop = True
 
         self.playing = False
 
@@ -188,54 +159,87 @@ class Game:
                 self.mobTimer = now
                 Fawfulcopter(self)
 
-            powerupHits = pg.sprite.spritecollide(self.player, self.powerups, False)
+            powerupHits = pg.sprite.spritecollide(self.luigi, self.powerups, False)
             if powerupHits:
                 if powerupHits[0].type == "Mushroom":
                     self.mushroomSound.play()
-                    self.player.health += 1
+                    self.luigi.health += 1
                     powerupHits[0].kill()
                 elif powerupHits[0].type == "1UP":
                     self.mushroomSound.play()
-                    self.player.health += 5
+                    self.luigi.health += 5
                     powerupHits[0].kill()
 
-            mobHits = pg.sprite.spritecollide(self.player, self.fawfulcopters, False, pg.sprite.collide_mask)
+            if self.players == 2:
+                powerupHits2 = pg.sprite.spritecollide(self.mario, self.powerups, False)
+                if powerupHits2:
+                    if powerupHits2[0].type == "Mushroom":
+                        self.mushroomSound.play()
+                        self.mario.health += 1
+                        powerupHits2[0].kill()
+                    elif powerupHits2[0].type == "1UP":
+                        self.mushroomSound.play()
+                        self.mario.health += 5
+                        powerupHits2[0].kill()
+
+            mobHits = pg.sprite.spritecollide(self.luigi, self.fawfulcopters, False, pg.sprite.collide_mask)
             if mobHits:
                 if mobHits[0].rect.y > 0 and mobHits[0].rect.x > 0 and mobHits[0].rect.x < width:
-                    if self.player.rect.bottom - 50 < mobHits[0].rect.top and not self.player.dead and not mobHits[0].dead:
+                    if self.luigi.rect.bottom - 50 < mobHits[0].rect.top and not self.luigi.dead and not mobHits[0].dead:
                         mobHits[0].sound.stop()
                         mobHits[0].dead = True
                         self.enemyDieSound.play()
                         self.kills += 1
                         enemyCoin(mobHits[0].rect.x, mobHits[0].rect.y, self)
-                        self.player.vel.y = 0
-                        self.player.vel.y -= jumpPower / 3
+                        self.luigi.vel.y = 0
+                        self.luigi.vel.y -= jumpPower / 3
                         self.jumpOffEnemy = 0
-                        self.player.jumping = False
-                    elif not self.player.dead and not mobHits[0].dead:
-                        self.player.dead = True
+                        self.luigi.jumping = False
+                    elif not self.luigi.dead and not mobHits[0].dead:
+                        self.luigi.dead = True
                         if not self.dieSound:
                             self.hitSound.play()
-                            self.player.health -= 1
+                            self.luigi.health -= 1
                             self.dieSound = True
+
+            if self.players == 2:
+                mobHits2 = pg.sprite.spritecollide(self.mario, self.fawfulcopters, False, pg.sprite.collide_mask)
+                if mobHits2:
+                    if mobHits2[0].rect.y > 0 and mobHits2[0].rect.x > 0 and mobHits2[0].rect.x < width:
+                        if self.mario.rect.bottom - 50 < mobHits2[0].rect.top and not self.mario.dead and not mobHits2[0].dead:
+                            mobHits2[0].sound.stop()
+                            mobHits2[0].dead = True
+                            self.enemyDieSound.play()
+                            self.kills += 1
+                            enemyCoin(mobHits2[0].rect.x, mobHits2[0].rect.y, self)
+                            self.mario.vel.y = 0
+                            self.mario.vel.y -= jumpPower / 3
+                            self.jumpOffEnemy = 0
+                            self.mario.jumping = False
+                        elif not self.mario.dead and not mobHits2[0].dead:
+                            self.mario.dead = True
+                            if not self.dieSound:
+                                self.hitSound.play()
+                                self.mario.health -= 1
+                                self.dieSound = True
 
             if self.jumpOffEnemy < 10:
                 self.jumpOffEnemy += 1
 
-            if self.player.vel.y > 0:
-                hits = pg.sprite.spritecollide(self.player, self.platforms, False)
+            if self.luigi.vel.y > 0:
+                hits = pg.sprite.spritecollide(self.luigi, self.platforms, False)
                 if hits:
                     if not self.going:
-                        if self.player.pos.y < hits[0].rect.bottom:
-                            self.player.pos.y = hits[0].rect.top + 1
-                            self.player.vel.y = 0
-                            self.player.jumping = False
+                        if self.luigi.pos.y < hits[0].rect.bottom:
+                            self.luigi.pos.y = hits[0].rect.top + 1
+                            self.luigi.vel.y = 0
+                            self.luigi.jumping = False
                             self.jumpOffEnemy = 100
                     else:
-                        if self.player.pos.y < hits[0].rect.bottom:
-                            self.player.pos.y = hits[0].rect.top + self.platformSpeed
-                            self.player.vel.y = 0
-                            self.player.jumping = False
+                        if self.luigi.pos.y < hits[0].rect.bottom:
+                            self.luigi.pos.y = hits[0].rect.top + self.platformSpeed
+                            self.luigi.vel.y = 0
+                            self.luigi.jumping = False
                             self.jumpOffEnemy = 100
 
                     if hits[0].color == 1:
@@ -243,15 +247,37 @@ class Game:
                     else:
                         self.playerFriction = maxFriction
 
+            if self.players == 2:
+                if self.mario.vel.y > 0:
+                    hits = pg.sprite.spritecollide(self.mario, self.platforms, False)
+                    if hits:
+                        if not self.going:
+                            if self.mario.pos.y < hits[0].rect.bottom:
+                                self.mario.pos.y = hits[0].rect.top + 1
+                                self.mario.vel.y = 0
+                                self.mario.jumping = False
+                                self.jumpOffEnemy = 100
+                        else:
+                            if self.mario.pos.y < hits[0].rect.bottom:
+                                self.mario.pos.y = hits[0].rect.top + self.platformSpeed
+                                self.mario.vel.y = 0
+                                self.mario.jumping = False
+                                self.jumpOffEnemy = 100
+
+                        if hits[0].color == 1:
+                            self.playerFriction = minFriction
+                        else:
+                            self.playerFriction = maxFriction
+
 
             if self.score == 25:
                 if self.mobSpawnRate > 1000:
                     self.mobSpawnRate -= 500
                 self.score = 0
 
-            if self.player.rect.top <= height / 4:
+            if self.luigi.rect.top <= height / 4:
                 self.going = True
-            #     self.player.pos.y += abs(self.player.vel.y)
+            #     self.luigi.pos.y += abs(self.luigi.vel.y)
 
             if self.going:
                 for fawfulcopter in self.fawfulcopters:
@@ -260,7 +286,7 @@ class Game:
                         fawfulcopter.sound.stop()
                         fawfulcopter.kill()
                 for plat in self.platforms:
-                    # plat.rect.y += abs(self.player.vel.y)
+                    # plat.rect.y += abs(self.luigi.vel.y)
                     plat.rect.y += self.platformSpeed
                     if plat.rect.top > height:
                         plat.kill()
@@ -291,16 +317,32 @@ class Game:
                 self.platforms.add(p)
                 self.sprites.add(p)
 
-            if self.player.rect.top > height:
-                self.player.kill()
-                for sprite in self.sprites:
-                    sprite.rect.y -= 40
-                    if sprite.rect.bottom < 0:
-                        sprite.kill()
-                if len(self.platforms) == 0:
-                    self.playing = False
+            if self.players == 1:
+                if self.luigi.rect.top > height:
+                    self.luigi.kill()
+                    for sprite in self.sprites:
+                        sprite.rect.y -= 40
+                        if sprite.rect.bottom < 0:
+                            sprite.kill()
+                    if len(self.platforms) == 0:
+                        self.playing = False
+            else:
+                if self.luigi.rect.top > height:
+                    self.luigi.kill()
+                    self.luigi.health = 0
+                if self.mario.rect.top > height:
+                    self.mario.kill()
+                    self.mario.health = 0
 
-            if not self.player.dead:
+                if self.mario.health == 0 and self.luigi.health == 0:
+                    for sprite in self.sprites:
+                        sprite.rect.y -= 40
+                        if sprite.rect.bottom < 0:
+                            sprite.kill()
+                    if len(self.platforms) == 0:
+                        self.playing = False
+
+            if not self.luigi.dead:
                 if self.going:
                     self.playtime += 1
 
@@ -357,10 +399,20 @@ class Game:
                 self.running = False
 
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_SPACE or event.key == pg.K_UP or event.key == pg.K_w:
-                    if not self.pause:
-                        if not self.player.dead:
-                            self.player.jump()
+                if self.players == 1:
+                    if event.key == pg.K_w or event.key == pg.K_SPACE:
+                        if not self.pause:
+                            if not self.luigi.dead:
+                                self.luigi.jump()
+                elif self.players == 2:
+                    if event.key == pg.K_w or event.key == pg.K_SPACE:
+                        if not self.pause:
+                            if not self.luigi.dead:
+                                self.luigi.jump()
+                    if event.key == pg.K_UP:
+                        if not self.pause:
+                            if not self.mario.dead:
+                                self.mario.jump()
                 if event.key == pg.K_RETURN:
                     if self.pause:
                         self.pause = False
@@ -379,12 +431,21 @@ class Game:
         self.particles.draw(self.screen)
         if self.pause:
             self.screen.blit(self.pauseBackground, (0,0))
-        if self.player.health > 0:
-            self.drawText("Time: " + self.displayTime, 22, white, width / 2, 15)
-            self.drawText("Kills: " + str(self.kills), 22, white, width * (3/4), 15)
-            self.drawText("Health: " + str(self.player.health), 22, white, width / 4, 15)
-        else:
-            self.drawText("Time: " + self.displayTime, 100, yellow, width / 2, height / 2 - 50)
+        if self.players == 1:
+            if self.luigi.health > 0:
+                self.drawText("Time: " + self.displayTime, 22, white, width / 2, 15)
+                self.drawText("Kills: " + str(self.kills), 22, white, width * (3/4), 15)
+                self.drawText("Health: " + str(self.luigi.health), 22, white, width / 4, 15)
+            else:
+                self.drawText("Time: " + self.displayTime, 100, yellow, width / 2, height / 2 - 50)
+        elif self.players == 2:
+            if self.luigi.health > 0 or self.mario.health > 0:
+                self.drawText("Time: " + self.displayTime, 22, white, width / 2, 15)
+                self.drawText("Kills: " + str(self.kills), 22, white, width * (3/4), 15)
+                self.drawText("Luigi's Health: " + str(self.luigi.health), 22, white, width / 4, 15)
+                self.drawText("Mario's Health: " + str(self.mario.health), 22, white, width / 4, 40)
+            else:
+                self.drawText("Time: " + self.displayTime, 100, yellow, width / 2, height / 2 - 50)
         # DO THIS ONE LAST
         pg.display.flip()
 
@@ -396,63 +457,79 @@ class Game:
         self.screen.blit(textSurface, textRect)
 
     def splashScreen(self):
-        self.playSong(False, 'title screen')
-        self.screen.fill(bgColor)
-        self.drawText(title, 40, white, width / 2, height / 4)
-        self.drawText("If you want to keep your knees, press a button!", 20, white, width / 2, height * 3 / 4)
-        self.drawText("The longest time is " + str(self.bestDisplayTime) + ", by the way", 20, white, width / 2, height * 3 / 4 + 50)
-        pg.display.flip()
-        self.waitForKey()
+        self.waiting = True
         pg.mixer.music.stop()
-        self.song_playing = ""
-
-    def gameOver(self):
-        self.playSong(False, "game_over")
-        if not self.running:
-            return
-        self.screen.fill(bgColor)
-        self.drawText("YOU DIED!", 40, white, width / 2, height / 4)
-        # self.drawText("Your score was: " + str(self.score), 20, white, width / 2, height / 2)
-        self.drawText("Your time was: " + str(self.displayTime), 20, white, width / 2, height / 2)
-        self.drawText("Your total kills: " + str(self.kills), 20, white, width / 2, height / 2 + 50)
-        self.drawText("I hope you still like your knees.", 20, white, width / 2, height * 3 / 4)
-
-        if self.playtime > self.bestTime:
-            self.bestTime = self.playtime
-            self.bestDisplayTime = self.displayTime
-            self.drawText("That's your new best, BTW", 20, white, width / 2, height / 2 + 25)
-            self.saveGame()
-        else:
-            self.drawText("The current best time is " + str(self.bestDisplayTime), 20, white, width / 2,
-            height * 3 / 4 + 25)
-
-        if self.kills > self.mostKills:
-            self.mostKills = self.kills
-            self.drawText("That's a lot of kills", 20, white, width / 2, height / 2 + 75)
-            self.saveGame()
-        else:
-            self.drawText("The most kills you've had are " + str(self.mostKills), 20, white, width / 2,
-                          height * 3 / 4 + 50)
-
-
-        pg.display.flip()
-        self.waitForKey()
-        pg.mixer.stop()
-        pg.mixer.music.stop()
-        self.song_playing = ""
-
-    def waitForKey(self):
-        waiting = True
-        while waiting:
+        while self.waiting:
             self.keys = pg.key.get_pressed()
             self.clock.tick(fps)
             for event in pg.event.get():
                 self.keys = pg.key.get_pressed()
                 if event.type == pg.QUIT or self.keys[pg.K_ESCAPE]:
-                    waiting = False
+                    self.waiting = False
+                    self.running = False
+                if self.keys[pg.K_SPACE]:
+                    self.waiting = False
+                if self.keys[pg.K_LEFT] or self.keys[pg.K_RIGHT] or self.keys[pg.K_a] or self.keys[pg.K_d]:
+                    if self.players == 1:
+                        self.players = 2
+                    else:
+                        self.players = 1
+            self.playSong(0.0, 60.008, 'title screen')
+            self.screen.fill(bgColor)
+            self.drawText(title, 40, white, width / 2, height / 4)
+            self.drawText("Players: " + str(self.players), 20, white, width / 2, height / 2)
+            self.drawText("If you want to keep your knees, press space!", 20, white, width / 2, height * 3 / 4)
+            self.drawText("The longest time is " + str(self.bestDisplayTime) + ", by the way", 20, white, width / 2, height * 3 / 4 + 50)
+            pg.display.flip()
+        pg.mixer.music.stop()
+        self.song_playing = ""
+
+    def gameOver(self):
+        self.waiting = True
+        pg.mixer.music.stop()
+        while self.waiting:
+            self.keys = pg.key.get_pressed()
+            self.clock.tick(fps)
+            for event in pg.event.get():
+                self.keys = pg.key.get_pressed()
+                if event.type == pg.QUIT or self.keys[pg.K_ESCAPE]:
+                    self.waiting = False
                     self.running = False
                 if event.type == pg.KEYUP:
-                    waiting = False
+                    self.waiting = False
+            self.playSong(0, 50.416, "game over")
+            if not self.running:
+                return
+            self.screen.fill(bgColor)
+            self.drawText("YOU DIED!", 40, white, width / 2, height / 4)
+            # self.drawText("Your score was: " + str(self.score), 20, white, width / 2, height / 2)
+            self.drawText("Your time was: " + str(self.displayTime), 20, white, width / 2, height / 2)
+            self.drawText("Your total kills: " + str(self.kills), 20, white, width / 2, height / 2 + 50)
+            self.drawText("I hope you still like your knees.", 20, white, width / 2, height * 3 / 4)
+
+            if self.playtime > self.bestTime:
+                self.bestTime = self.playtime
+                self.bestDisplayTime = self.displayTime
+                self.drawText("That's your new best, BTW", 20, white, width / 2, height / 2 + 25)
+                self.saveGame()
+            else:
+                self.drawText("The current best time is " + str(self.bestDisplayTime), 20, white, width / 2,
+                height * 3 / 4 + 25)
+
+            if self.kills > self.mostKills:
+                self.mostKills = self.kills
+                self.drawText("That's a lot of kills", 20, white, width / 2, height / 2 + 75)
+                self.saveGame()
+            else:
+                self.drawText("The most kills you've had are " + str(self.mostKills), 20, white, width / 2,
+                              height * 3 / 4 + 50)
+
+
+            pg.display.flip()
+        pg.mixer.stop()
+        pg.mixer.music.stop()
+        self.song_playing = ""
+
 
 game = Game()
 game.splashScreen()
