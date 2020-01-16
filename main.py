@@ -3,10 +3,9 @@ import pygame as pg
 from Scripts.sprites import *
 from Scripts.settings import *
 
-pg.display.set_icon(pg.image.load(icon))
 pg.display.set_caption(title)
+pg.mixer.pre_init(44100, -16, 2)
 pg.init()
-pg.mixer.init(48000, -16, 2, 1024)
 
 class Game:
     def __init__(self):
@@ -50,7 +49,7 @@ class Game:
             pg.mixer.music.unpause()
             pg.mixer.unpause()
 
-        if intro:
+        if intro and not self.pause:
             if self.song_playing != "loop":
                 if not pg.mixer.music.get_busy() and self.song_playing == "":
                     if self.song_playing == "":
@@ -390,8 +389,8 @@ class Game:
         pg.display.flip()
 
     def drawText(self, text, size, color, x, y):
-        font = pg.font.Font(self.font, size)
-        textSurface = font.render(text, True, color)
+        fnt = pg.font.Font("fonts/" + font, size)
+        textSurface = fnt.render(text, True, color)
         textRect = textSurface.get_rect()
         textRect.midtop = (int(x), int(y))
         self.screen.blit(textSurface, textRect)
