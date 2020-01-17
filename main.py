@@ -4,6 +4,7 @@ from Scripts.sprites import *
 from Scripts.settings import *
 
 pg.mixer.pre_init(44100, -16, 2, 512)
+pg.display.set_icon(pg.image.load(icon))
 pg.init()
 pg.display.set_caption(title)
 

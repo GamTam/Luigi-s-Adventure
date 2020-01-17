@@ -5,6 +5,7 @@ random.seed()
 width = 1080
 height = 720
 fps = 60
+icon = "sprites/heart.png"
 title = "Luigi's Adventure"
 font = 'Main.otf'
 saveFile = "Save/" + str(title) + ".ini"

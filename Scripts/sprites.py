@@ -51,7 +51,10 @@ class Luigi(pg.sprite.Sprite):
         self.currentFrame = 0
         self.rect = self.image.get_rect()
         self.rect.center = (width / 2, height / 2)
-        self.pos = vec(width / 2 - 50, height / 2 + 25)
+        if self.game.players == 1:
+            self.pos = vec(width / 2, height / 2 + 25)
+        else:
+            self.pos = vec(width / 2 - 50, height / 2 + 25)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
         self.mask = pg.mask.from_surface(self.image)
