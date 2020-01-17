@@ -34,6 +34,7 @@ class Luigi(pg.sprite.Sprite):
         self.game = game
         self.health = 3
         self.deadTimer = 0
+        self.dead = False
         self.walking = False
         self.jumping = False
         self.playIceSound = True
@@ -44,7 +45,7 @@ class Luigi(pg.sprite.Sprite):
         self.crouchTimer = 0
         self.loadImages()
         self.facing = 'Right'
-        self.dead = False
+        self.hit = False
         self.image = self.standingFrame[0]
         self.currentJumpFrame = 0
         self.currentFrame = 0
@@ -164,7 +165,7 @@ class Luigi(pg.sprite.Sprite):
         self.animate()
         self.acc = vec(0, playerGrav)
         keys = pg.key.get_pressed()
-        if not self.dead:
+        if not self.hit:
 
             if not self.jumping and (keys[pg.K_s]):
                 self.crouching = True
@@ -204,19 +205,19 @@ class Luigi(pg.sprite.Sprite):
         else:
             self.walking = False
 
-        if self.dead and self.deadTimer < fps:
+        if self.hit and self.deadTimer < fps:
             self.image = self.deadFrames
             self.deadTimer += 1
             self.rect = self.image.get_rect()
-        elif self.dead and self.deadTimer == fps and self.health > 0:
+        elif self.hit and self.deadTimer == fps and self.health > 0:
             self.jumping = True
             pg.mixer.Sound.play(self.game.hopSound)
             self.vel.y -= jumpPower / 3
             self.game.dieSound = False
-            self.dead = False
+            self.hit = False
             self.deadTimer = 0
 
-        if not self.dead:
+        if not self.hit:
             if self.crouching:
                 if now - self.lastUpdate > 50:
                     self.lastUpdate = now
@@ -313,6 +314,7 @@ class Mario(pg.sprite.Sprite):
         self.game = game
         self.health = 3
         self.deadTimer = 0
+        self.dead = False
         self.walking = False
         self.jumping = False
         self.playIceSound = True
@@ -323,7 +325,7 @@ class Mario(pg.sprite.Sprite):
         self.crouchTimer = 0
         self.loadImages()
         self.facing = 'Right'
-        self.dead = False
+        self.hit = False
         self.image = self.standingFrame[0]
         self.currentJumpFrame = 0
         self.currentFrame = 0
@@ -402,19 +404,19 @@ class Mario(pg.sprite.Sprite):
         self.animate()
         self.acc = vec(0, playerGrav)
         keys = pg.key.get_pressed()
-        if not self.dead:
+        if not self.hit:
 
             if keys[pg.K_LEFT] and not self.crouching:
                 if not self.crouching:
                     self.acc.x = -playerAcc
                     self.facing = "Left"
-                    if keys[pg.K_RSHIFT]:
+                    if keys[pg.K_RCTRL]:
                         self.acc.x = playerAcc * -2
             if keys[pg.K_RIGHT] and not self.crouching:
                 if not self.crouching:
                     self.acc.x = playerAcc
                     self.facing = "Right"
-                    if keys[pg.K_RSHIFT]:
+                    if keys[pg.K_RCTRL]:
                         self.acc.x = playerAcc * 2
 
         self.acc.x += self.vel.x * self.game.playerFriction
@@ -437,19 +439,19 @@ class Mario(pg.sprite.Sprite):
         else:
             self.walking = False
 
-        if self.dead and self.deadTimer < fps:
+        if self.hit and self.deadTimer < fps:
             self.image = self.deadFrames
             self.deadTimer += 1
             self.rect = self.image.get_rect()
-        elif self.dead and self.deadTimer == fps and self.health > 0:
+        elif self.hit and self.deadTimer == fps and self.health > 0:
             self.jumping = True
             pg.mixer.Sound.play(self.game.hopSound)
             self.vel.y -= jumpPower / 3
             self.game.dieSound = False
-            self.dead = False
+            self.hit = False
             self.deadTimer = 0
 
-        if not self.dead:
+        if not self.hit:
             if self.jumping or self.game.jumpOffEnemy < 10:
                 self.playCrouchSound = True
                 if now - self.lastUpdate > 100:
@@ -590,7 +592,7 @@ class Fawfulcopter(pg.sprite.Sprite):
         self.rect.y = random.randrange(-500, height / 8)
         self.vy = 0
         self.dy = 0.25
-        self.dead = False
+        self.hit = False
         self.mask = pg.mask.from_surface(self.image)
         self.alpha = 255
         self.playingSound = False
@@ -601,7 +603,7 @@ class Fawfulcopter(pg.sprite.Sprite):
         if self.vy > 3 or self.vy < -3:
             self.dy *= -1
         now = pg.time.get_ticks()
-        if not self.dead:
+        if not self.hit:
             if now - self.lastUpdate > 20:
                 if self.vx > 0:
                     self.lastUpdate = now
@@ -633,7 +635,6 @@ class Fawfulcopter(pg.sprite.Sprite):
                     self.rect.center = center
 
                 self.alpha -= 10
-                self.image.set_alpha(self.alpha)
 
         if self.alpha <= 0:
             self.kill()
