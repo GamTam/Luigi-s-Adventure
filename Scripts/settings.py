@@ -2,7 +2,7 @@ import random
 
 random.seed()
 
-width = 1080
+width = 1280
 height = 720
 fps = 60
 icon = "sprites/heart.png"

@@ -139,6 +139,7 @@ downing = False
 
 while True:
     image()
+    clock.tick(60)
     keys = pygame.key.get_pressed()
 
     for event in pygame.event.get():
