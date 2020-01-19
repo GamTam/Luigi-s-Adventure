@@ -157,12 +157,11 @@ class Luigi(pg.sprite.Sprite):
                 self.game.hopSound.play()
 
         if self.game.jumpOffEnemy < 10:
-            if not self.jumping and not self.crouching:
-                self.vel.y -= (jumpPower / 2)
+            self.vel.y -= (jumpPower / 1.5)
 
-                self.game.jumpSound.play()
-                self.jumping = True
-                self.game.jumpOffEnemy = 100
+            self.game.jumpSound.play()
+            self.jumping = True
+            self.game.jumpOffEnemy = 100
 
     def update(self):
         self.animate()
