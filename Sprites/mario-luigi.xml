@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:35ef6750ce36df2a465e732255ea88e2:11fc2d4edce593f4a32f0d040c046c44:af4b8e950537b1efabfd97e55b9f4b77$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="mario-luigi.png" width="254" height="978">
+    <sprite n="mario-luigi/Layer 1.png" x="0" y="0" w="40" h="80"/>
+    <sprite n="mario-luigi/Layer 2.png" x="40" y="0" w="52" h="84"/>
+    <sprite n="mario-luigi/Layer 3.png" x="92" y="0" w="70" h="86"/>
+    <sprite n="mario-luigi/Layer 4.png" x="162" y="0" w="74" h="86"/>
+    <sprite n="mario-luigi/Layer 5.png" x="0" y="86" w="64" h="90"/>
+    <sprite n="mario-luigi/Layer 6.png" x="64" y="86" w="48" h="92"/>
+    <sprite n="mario-luigi/Layer 7.png" x="112" y="86" w="40" h="92"/>
+    <sprite n="mario-luigi/Layer 8.png" x="152" y="86" w="62" h="92"/>
+    <sprite n="mario-luigi/Layer 9.png" x="0" y="178" w="70" h="82"/>
+    <sprite n="mario-luigi/Layer 10.png" x="70" y="178" w="74" h="80"/>
+    <sprite n="mario-luigi/Layer 11.png" x="144" y="178" w="66" h="82"/>
+    <sprite n="mario-luigi/Layer 12.png" x="0" y="260" w="50" h="80"/>
+    <sprite n="mario-luigi/mario_standing_down.png" x="50" y="260" w="50" h="90"/>
+    <sprite n="mario-luigi/mario_standing_downleft.png" x="100" y="260" w="42" h="94"/>
+    <sprite n="mario-luigi/mario_standing_downright.png" x="142" y="260" w="42" h="94"/>
+    <sprite n="mario-luigi/mario_standing_left.png" x="184" y="260" w="40" h="96"/>
+    <sprite n="mario-luigi/mario_standing_right.png" x="0" y="356" w="40" h="96"/>
+    <sprite n="mario-luigi/mario_standing_up.png" x="40" y="356" w="50" h="90"/>
+    <sprite n="mario-luigi/mario_standing_upleft.png" x="90" y="356" w="40" h="94"/>
+    <sprite n="mario-luigi/mario_standing_upright.png" x="130" y="356" w="40" h="94"/>
+    <sprite n="mario-luigi/mario_walking_up_1.png" x="170" y="356" w="72" h="84"/>
+    <sprite n="mario-luigi/mario_walking_up_2.png" x="0" y="452" w="62" h="90"/>
+    <sprite n="mario-luigi/mario_walking_up_3.png" x="62" y="452" w="46" h="86"/>
+    <sprite n="mario-luigi/mario_walking_up_4.png" x="108" y="452" w="42" h="80"/>
+    <sprite n="mario-luigi/mario_walking_up_5.png" x="150" y="452" w="62" h="82"/>
+    <sprite n="mario-luigi/mario_walking_up_6.png" x="0" y="542" w="74" h="86"/>
+    <sprite n="mario-luigi/mario_walking_up_7.png" x="74" y="542" w="72" h="84"/>
+    <sprite n="mario-luigi/mario_walking_up_8.png" x="146" y="542" w="62" h="90"/>
+    <sprite n="mario-luigi/mario_walking_up_9.png" x="208" y="542" w="46" h="86"/>
+    <sprite n="mario-luigi/mario_walking_up_10.png" x="0" y="632" w="42" h="80"/>
+    <sprite n="mario-luigi/mario_walking_up_11.png" x="42" y="632" w="62" h="82"/>
+    <sprite n="mario-luigi/mario_walking_up_12.png" x="104" y="632" w="74" h="86"/>
+    <sprite n="mario-luigi/mario_walking_upleft_1.png" x="178" y="632" w="52" h="80"/>
+    <sprite n="mario-luigi/mario_walking_upleft_2.png" x="0" y="718" w="56" h="84"/>
+    <sprite n="mario-luigi/mario_walking_upleft_3.png" x="56" y="718" w="64" h="82"/>
+    <sprite n="mario-luigi/mario_walking_upleft_4.png" x="120" y="718" w="66" h="78"/>
+    <sprite n="mario-luigi/mario_walking_upleft_5.png" x="186" y="718" w="60" h="84"/>
+    <sprite n="mario-luigi/mario_walking_upleft_6.png" x="0" y="802" w="48" h="88"/>
+    <sprite n="mario-luigi/mario_walking_upleft_7.png" x="48" y="802" w="52" h="90"/>
+    <sprite n="mario-luigi/mario_walking_upleft_8.png" x="100" y="802" w="72" h="92"/>
+    <sprite n="mario-luigi/mario_walking_upleft_9.png" x="172" y="802" w="76" h="90"/>
+    <sprite n="mario-luigi/mario_walking_upleft_10.png" x="0" y="894" w="74" h="84"/>
+    <sprite n="mario-luigi/mario_walking_upleft_11.png" x="74" y="894" w="74" h="84"/>
+    <sprite n="mario-luigi/mario_walking_upleft_12.png" x="148" y="894" w="64" h="84"/>
+</TextureAtlas>

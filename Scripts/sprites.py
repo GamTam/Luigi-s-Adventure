@@ -40,7 +40,6 @@ class Luigi(pg.sprite.Sprite):
         self.playIceSound = True
         self.playCrouchSound = True
         self.crouching = False
-        self.currentFrame = 0
         self.lastUpdate = 0
         self.crouchTimer = 0
         self.loadImages()
@@ -412,13 +411,13 @@ class Mario(pg.sprite.Sprite):
                 if not self.crouching:
                     self.acc.x = -playerAcc
                     self.facing = "Left"
-                    if keys[pg.K_RCTRL]:
+                    if keys[pg.K_COMMA]:
                         self.acc.x = playerAcc * -2
             if keys[pg.K_RIGHT] and not self.crouching:
                 if not self.crouching:
                     self.acc.x = playerAcc
                     self.facing = "Right"
-                    if keys[pg.K_RCTRL]:
+                    if keys[pg.K_COMMA]:
                         self.acc.x = playerAcc * 2
 
         self.acc.x += self.vel.x * self.game.playerFriction
