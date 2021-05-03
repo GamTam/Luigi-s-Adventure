@@ -43,7 +43,6 @@ class Game:
 
 
     def playSong(self, introLength, loopLength, song):
-
         if self.pause:
             if self.pauseSound:
                 self.click.play()
@@ -181,6 +180,7 @@ class Game:
 
         if not self.pause:
             self.sprites.update()
+            print(self.clock.get_fps())
 
             now = pg.time.get_ticks()
             if now - self.mobTimer > self.mobSpawnRate + random.choice([-1000, -500, 0, 500, 1000]):
